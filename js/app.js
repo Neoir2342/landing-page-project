@@ -95,7 +95,7 @@ function activatingTheActiveClass() {
 // Set sections as active
 document.addEventListener('scroll', activatingTheActiveClass)
 
-// scroll to top using the to-top button
+// scroll to top using the top button
 const toTop = document.querySelector('.top')
 
 window.addEventListener('scroll', function() {
