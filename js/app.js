@@ -21,7 +21,7 @@
  * Define Global Variables
  * 
 */
-const sectionCollection = (document.querySelectorAll("section"))
+const sectionCollection = document.querySelectorAll("section")
 const navvbar = document.getElementById("navbar__list")
 const frag = document.createDocumentFragment()
 
