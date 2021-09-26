@@ -13,12 +13,17 @@
  * 
 */
 
+
+
+
+
 /**
  * Define Global Variables
  * 
 */
-const sectionCollection = Array.from(document.querySelectorAll("section"))
+const sectionCollection = (document.querySelectorAll("section"))
 const navvbar = document.getElementById("navbar__list")
+const frag = document.createDocumentFragment()
 
 
 /**
@@ -26,30 +31,40 @@ const navvbar = document.getElementById("navbar__list")
  * Start Helper Functions
  * 
 */
+  // for each section that's in "sectionCollection" Array
+  sectionCollection.forEach((section) => {
 
+
+    const sectionTitle = section.getAttribute("data-nav"),
+    //create list element
+      li = document.createElement("li"),
+      // create anchor element
+      a = document.createElement("a");
+    // add menu__link class to the anchor
+    a.className = "menu__link";
+    a.textContent = sectionTitle;
+    // the event listener for the smooth scroll
+    a.addEventListener("click", (e) => {
+      e.preventDefault();
+      section.scrollIntoView({
+        behavior: "smooth",
+      });
+    });
+    // add anchor to the list then the list in the fragment
+    li.appendChild(a);
+    frag.appendChild(li);
   
-    // for each section that's in "sectionCollection" Array
-    for (section of sectionCollection) {
-        listLocation = section.getAttribute("id")
-        listName = section.getAttribute("data-nav");
-       
+  });
+  // add the fragment inside navbar
+  navvbar.appendChild(frag);
 
-        // creating list
-        listy = document.createElement('li')
-        listy.innerHTML = `<a class="menu__link" href=#${listLocation}>${listName}</a>`
 
-       navvbar.appendChild(listy)
-    }
-   
-
-    
-    
-   // This function is for setting up the activate state for the sections
-    function checkViewPort() {
-        const viewPort = section.getBoundingClientRect();
-        return ((viewPort.top >= 0) && (viewPort.top < 300))
-    }
-    
+// This function is for setting up the activate state for the sections
+function checkViewPort() {
+    const viewPort = section.getBoundingClientRect();
+    return ((viewPort.top >= 0) && (viewPort.top < 300))
+}
+  
 
 /**
  * End Helper Functions
@@ -57,8 +72,14 @@ const navvbar = document.getElementById("navbar__list")
  * 
 */
 
+
+// build the nav
+
+
+
+// Add class 'active' to section when near top of viewport
 function activatingTheActiveClass() {  
-    // this loop will make everything inside of it work the exact way for every element in the "sectionCollectio" Array
+    // this loop will make everything inside of it work the exact way for every element in the "sectionCollection" Array
     for (section of sectionCollection) {
         if(checkViewPort(section)) {
             // does it contain this class?
@@ -71,12 +92,7 @@ function activatingTheActiveClass() {
         }
     }
 }
-// build the nav
-
-
-
-
-// Add class 'active' to section when near top of viewport
+    
 
 
 // Scroll to anchor ID using scrollTO event
@@ -95,7 +111,7 @@ function activatingTheActiveClass() {
 // Set sections as active
 document.addEventListener('scroll', activatingTheActiveClass)
 
-// scroll to top using the top button
+// scroll to top using the to-top button
 const toTop = document.querySelector('.top')
 
 window.addEventListener('scroll', function() {
@@ -106,6 +122,8 @@ window.addEventListener('scroll', function() {
     } else {
         toTop.classList.remove('active')
     }
+})
+
 })
 
 
